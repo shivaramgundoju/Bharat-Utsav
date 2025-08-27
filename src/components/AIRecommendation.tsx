@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Send, Sparkles, Loader2, GitCompare, Calendar, MapPin, Lightbulb, ChefHat, Clock, Globe } from 'lucide-react';
-import { getAIRecommendation, compareFestivals, getSeasonalRecommendations, getFutureFestivalDetails, getFestivalCalendarForYear } from '../utils/openrouter';
+import { getAIRecommendation } from '../utils/openrouter';
 import FestivalRecipeRecommendation from './FestivalRecipeRecommendation';
 
 interface Message {
@@ -204,50 +204,14 @@ const AIRecommendation: React.FC = () => {
     if (!festival1 || !festival2) return;
     
     const question = `Compare ${festival1} and ${festival2}`;
-    addMessage(question, true);
-    updateUserPreferences(question);
-    setIsLoading(true);
-
-    try {
-      const response = await compareFestivals({ festival1, festival2 });
-      if (response.error) {
-        console.warn('Festival Comparison Error:', response.error);
-      }
-      addMessage(response.recommendation, false);
-    } catch (error) {
-      console.error('Unexpected error in Festival Comparison:', error);
-      addMessage('Sorry, I\'m having trouble comparing festivals right now. Please try again.', false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [addMessage, updateUserPreferences]);
+    handleQuickQuestion(question);
+  }, [handleQuickQuestion]);
 
   const handleSeasonalRecommendations = useCallback(async () => {
     const currentMonth = new Date().getMonth();
     const question = `Recommend festivals for ${new Date().toLocaleString('default', { month: 'long' })}`;
-    
-    addMessage(question, true);
-    updateUserPreferences(question);
-    setIsLoading(true);
-
-    try {
-      const response = await getSeasonalRecommendations({ 
-        month: currentMonth,
-        region: userPreferences.region,
-        interests: userPreferences.interests
-      });
-      
-      if (response.error) {
-        console.warn('Seasonal Recommendations Error:', response.error);
-      }
-      addMessage(response.recommendation, false);
-    } catch (error) {
-      console.error('Unexpected error in Seasonal Recommendations:', error);
-      addMessage('Sorry, I\'m having trouble getting seasonal recommendations right now. Please try again.', false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [addMessage, updateUserPreferences, userPreferences]);
+    handleQuickQuestion(question);
+  }, [handleQuickQuestion]);
 
   const handleFutureFestivalQuery = useCallback(async () => {
     const festivalName = prompt('Enter festival name (e.g., Diwali, Holi, Christmas):');
@@ -262,29 +226,8 @@ const AIRecommendation: React.FC = () => {
     }
     
     const question = `Tell me about ${festivalName} festival in ${year}`;
-    addMessage(question, true);
-    updateUserPreferences(question);
-    setIsLoading(true);
-
-    try {
-      const response = await getFutureFestivalDetails({ 
-        festivalName, 
-        year: yearNum,
-        includeHistoricalContext: true,
-        includeRegionalVariations: true
-      });
-      
-      if (response.error) {
-        console.warn('Future Festival Query Error:', response.error);
-      }
-      addMessage(response.recommendation, false);
-    } catch (error) {
-      console.error('Unexpected error in Future Festival Query:', error);
-      addMessage('Sorry, I\'m having trouble getting future festival details right now. Please try again.', false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [addMessage, updateUserPreferences]);
+    handleQuickQuestion(question);
+  }, [handleQuickQuestion, addMessage]);
 
   const handleYearCalendar = useCallback(async () => {
     const year = prompt('Enter year for festival calendar (e.g., 2026, 2027, 2030):');
@@ -298,24 +241,8 @@ const AIRecommendation: React.FC = () => {
     }
     
     const question = `Show me the festival calendar for ${year}`;
-    addMessage(question, true);
-    updateUserPreferences(question);
-    setIsLoading(true);
-
-    try {
-      const response = await getFestivalCalendarForYear(yearNum);
-      
-      if (response.error) {
-        console.warn('Year Calendar Error:', response.error);
-      }
-      addMessage(response.recommendation, false);
-    } catch (error) {
-      console.error('Unexpected error in Year Calendar:', error);
-      addMessage('Sorry, I\'m having trouble getting the festival calendar right now. Please try again.', false);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [addMessage, updateUserPreferences]);
+    handleQuickQuestion(question);
+  }, [handleQuickQuestion, addMessage]);
 
   const quickQuestions = [
     'Recommend a festival in South India',
