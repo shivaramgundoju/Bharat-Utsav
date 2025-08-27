@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const OPENROUTER_API_KEY = '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';
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+
+if (!OPENROUTER_API_KEY) {
+  console.error('OpenRouter API key is missing. Please check your .env file.');
+  throw new Error('OpenRouter API key configuration error');
+}
 
 // Simple cache for API responses
 const responseCache = new Map<string, { data: any; timestamp: number }>();
@@ -236,8 +241,14 @@ export async function getAIRecommendation(request: AIRecommendationRequest): Pro
     }
     
     if (error.response?.status === 401) {
+      console.error('OpenRouter Authentication Failed. Please check the API key:', {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        data: error.response.data
+      });
+      
       return {
-        recommendation: 'Authentication error. Please contact support.',
+        recommendation: 'Authentication error. The API key may be invalid or expired. Please check your OpenRouter account and update the API key in the .env file.',
         error: 'Auth Error'
       };
     }
