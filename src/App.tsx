@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -13,7 +13,6 @@ const FestivalPage = lazy(() => import('./pages/FestivalPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
 const SearchPage = lazy(() => import('./pages/SearchPage'));
 const RegionPage = lazy(() => import('./pages/RegionPage'));
-const AIAssistantPage = lazy(() => import('./pages/AIAssistantPage'));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -37,7 +36,6 @@ function App() {
                 <Route path="/calendar" element={<CalendarPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/region/:region" element={<RegionPage />} />
-                <Route path="/ai-assistant" element={<AIAssistantPage />} />
               </Routes>
             </Suspense>
           </main>

@@ -74,22 +74,6 @@ const HomePage: React.FC = () => {
             </Link>
           </div>
           
-          {/* AI Assistant Widget */}
-          <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-            <div className="flex items-center space-x-3">
-              <Sparkles className="w-6 h-6 text-orange-400" />
-              <div className="text-left">
-                <p className="text-white font-medium">Need personalized recommendations?</p>
-                <Link 
-                  to="/ai-assistant"
-                  className="text-orange-400 hover:text-orange-300 text-sm underline"
-                >
-                  Try our AI Assistant →
-                </Link>
-              </div>
-            </div>
-          </div>
-          
           {/* Scroll indicator */}
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
             <div className="text-white mb-2">Scroll to Explore</div>
@@ -174,10 +158,10 @@ const HomePage: React.FC = () => {
               <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mb-4">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2">AI-Powered Recommendations</h3>
+              <h3 className="text-xl font-bold mb-2">Curated Highlights</h3>
               <p className="text-gray-200">
-                Get personalized festival suggestions and cultural insights with our
-                intelligent AI assistant that understands your preferences.
+                Discover handpicked festivals, traditions, and stories that showcase
+                the diversity and vibrancy of celebrations across India.
               </p>
             </div>
           </div>
@@ -204,11 +188,11 @@ const HomePage: React.FC = () => {
               <span>Explore Festival Calendar</span>
             </Link>
             <Link 
-              to="/ai-assistant"
+              to="/search"
               className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full inline-flex items-center space-x-2 transition-colors font-medium"
             >
-              <Sparkles className="w-5 h-5" />
-              <span>Try AI Assistant</span>
+              <Search className="w-5 h-5" />
+              <span>Search Festivals</span>
             </Link>
           </div>
         </div>

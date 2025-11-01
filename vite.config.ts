@@ -12,18 +12,8 @@ export default defineConfig({
     // duplicate copies which cause "Invalid hook call" errors.
     dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
   optimizeDeps: {
     // Prebundle React once so all imports point to the same runtime.
     include: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
-    force: true,
   },
 });

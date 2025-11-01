@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Search, Calendar, Home, Info, Sparkles } from 'lucide-react';
+import { Menu, X, Search, Calendar, Home, Info } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -91,19 +91,6 @@ const Header: React.FC = () => {
             <span>About</span>
           </Link>
           <Link 
-            to="/ai-assistant" 
-            className={`transition-colors duration-300 hover:text-orange-500 flex items-center space-x-1 ${
-              location.pathname === '/ai-assistant' 
-                ? 'text-orange-500' 
-                : isScrolled 
-                  ? 'text-gray-900' 
-                  : 'text-white'
-            }`}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>AI Assistant</span>
-          </Link>
-          <Link 
             to="/search" 
             className="bg-orange-500 text-white px-4 py-2 rounded-full flex items-center space-x-1 hover:bg-orange-600 transition-colors duration-300"
           >
@@ -157,15 +144,6 @@ const Header: React.FC = () => {
               >
                 <Info className="w-5 h-5" />
                 <span>About</span>
-              </Link>
-              <Link 
-                to="/ai-assistant" 
-                className={`py-2 px-3 rounded-md hover:bg-orange-100 transition-colors duration-300 flex items-center space-x-2 ${
-                  location.pathname === '/ai-assistant' ? 'bg-orange-100 text-orange-600' : 'text-gray-800'
-                }`}
-              >
-                <Sparkles className="w-5 h-5" />
-                <span>AI Assistant</span>
               </Link>
               <Link 
                 to="/search" 
